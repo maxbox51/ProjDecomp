@@ -1,0 +1,8 @@
+exportClasses(ProjectiveDecompositionClass)
+
+exportMethods(
+    pd.default,
+    pd.dgTMatrix
+    )
+
+exportPattern("^[[:alpha:]]+")

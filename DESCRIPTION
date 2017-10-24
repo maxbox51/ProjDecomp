@@ -1,0 +1,49 @@
+Package: ProjectiveDecomposition
+Type: Package
+Title: Decompose a real matrix into scale factors and a scale-independent matrix
+Version: 1.0
+Date: 2017-10-20
+Author: Max Robinson
+Maintainer: Max Robinson <max.robinson@systemsbiology.org>
+Description: 
+The projective decomposition of an m x n real matrix M = {m_ij} is described by
+the equation {m_ij} = s { a_i w_ij b_j }, where:
+
+s = sqrt(sum(m_ij*m_ij)/(m*n)) >= 0 is the root-mean-square (RMS) of the
+matrix M,
+a = {a_i: i=1..m}, a_i > 0 for all i, is a vector of positive row scaling factors,
+b = {b_j: j=1..m}, b_j > 0 for all j, is a vector of positive column scaling factors,
+and the matrix W satisfies both of the following constraints:
+1. Every row of W has RMS 1.
+2. Every column of W has RMS 1.
+These constraints imply that the entire matrix W also has RMS 1.
+
+Such a matrix W is called a scale invariant matrix; projective decomposition therefore
+finds the scale invariant matrix equivalent to the input matrix M. A scale invariant
+matrix is simultaneously and symmetrically normalized on both its columns and its rows.
+Without applying any other normalization, even data analyses which treat rows and columns
+differently, such as principal components analysis (PCA), will produce corresponding
+results from an analysis of W or its transpose t(W). However, be aware that while the
+rows and columns of M were representations of the data in ordinary Euclidean spaces (R^n
+and R^m, respectively), the rows and columns of W are representations of the data in 
+projective spaces, and the results of PCA on W will therefore look qualitatively different
+from the results of PCA on M. A more appropriate data analysis method for W is provided in
+the Scale Invariant Geometric Data Analysis package (SIGDA).
+
+This package uses, and is compatible with, the sparse matrix representations in package
+Matrix. Note that not all matrices have a projective decomposition. For square matrices,
+the algorithm used here should find a projective decomposition for any matrix with total
+support. For non-square (rectangular) matrices, a complete specification of which matrices
+have a projective decomposition is not available; however, the limitation is defined
+by the zero pattern of the matrix and is similar in concept to total support: the matrix
+must be "sufficiently dense" in terms of non-zero elements. A matrix in which all entries
+are nonzero is guaranteed to have a projective decomposition, and given sufficient memory and
+the ability to index all rows and columns, adding a constant value to every element of
+a matrix that does not have a projective decomposition which renders every element nonzero
+will identify a related matrix that has a projective decomposition. To the extent that
+projective decomposition is related to creating a perspective drawing of the data in the matrix
+(and it is), adding a constant to the entire matrix is equivalent to placing the data at a
+different distance from the "camera"; i.e. when your matrix is too sparse to have a
+projective decomposition, it is worth a try.
+
+License: Copyright 2017 Max Robinson. Licensed under the Apache License, Version 2.0.
